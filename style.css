@@ -9,44 +9,48 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: #333;
+    background-color: #f9fafb;
     line-height: 1.6;
-    background-color: #f3f4f6;
-    padding: 0 10px;
+    padding: 0;
 }
 
 /* Navigation Styling */
 nav {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 30px;
     background-color: #333;
-    padding: 15px 0;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 nav a {
     color: white;
     text-decoration: none;
     font-weight: 500;
+    transition: color 0.3s;
 }
 
 nav a:hover {
     color: #007bff;
-    transition: color 0.3s;
 }
 
-/* Header */
+/* Header Styling */
 header {
-    background: linear-gradient(to right, #333, #555);
-    color: #fff;
-    padding: 40px 20px;
+    background: linear-gradient(to right, #2d3e50, #3a4d6b);
+    color: white;
     text-align: center;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 60px 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
 }
 
 header h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
 }
 
 header p {
@@ -56,24 +60,35 @@ header p {
 
 /* Section Styling */
 section {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 40px auto;
+    padding: 30px;
+    max-width: 1100px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #2d3e50;
 }
 
 /* Project Card Styling */
 .project {
     background-color: #f9f9f9;
     padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .project h3 {
     color: #333;
-    font-size: 1.5em;
+    font-size: 1.8em;
+    margin-bottom: 10px;
 }
 
 .project a {
@@ -85,7 +100,7 @@ section {
     text-decoration: underline;
 }
 
-/* Contact Section */
+/* Contact Section Styling */
 #contact a {
     color: #007bff;
     text-decoration: none;
@@ -100,7 +115,27 @@ footer {
     background-color: #333;
     color: #777;
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid #444;
-    margin-top: 20px;
+    padding: 30px 0;
+    margin-top: 40px;
+    font-size: 1.1em;
+}
+
+/* Mobile Responsive Styling */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    header {
+        padding: 40px 20px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    footer {
+        padding: 20px;
+    }
 }
