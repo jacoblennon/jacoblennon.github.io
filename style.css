@@ -1,47 +1,106 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+/* General Reset */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-}
-
-footer {
-    margin-top: 20px;
-    color: #777;
-}
-#voting-project {
-    background-color: #f4f4f4;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-}
-
-#voting-project h2 {
+/* Font and Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
     color: #333;
+    line-height: 1.6;
+    background-color: #f3f4f6;
+    padding: 0 10px;
 }
 
-#voting-project p {
-    font-size: 1.1em;
-    color: #555;
+/* Navigation Styling */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background-color: #333;
+    padding: 15px 0;
 }
 
-#voting-project a {
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #333, #555);
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+header p {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+/* Section Styling */
+section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Project Card Styling */
+.project {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.project h3 {
+    color: #333;
+    font-size: 1.5em;
+}
+
+.project a {
     color: #007bff;
     text-decoration: none;
 }
 
-#voting-project a:hover {
+.project a:hover {
     text-decoration: underline;
 }
 
-#voting-project img {
-    margin-top: 10px;
-    border-radius: 8px;
-    max-width: 100%;
+/* Contact Section */
+#contact a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: #777;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #444;
+    margin-top: 20px;
 }
