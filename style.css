@@ -9,7 +9,8 @@ body {
     font-family: 'Roboto', sans-serif;
     color: #333;
     background-color: #f4f7fc;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    line-height: 1.6;
 }
 
 /* Navbar Styling */
@@ -24,11 +25,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s;
 }
 
 .navbar ul {
     list-style-type: none;
-    padding: 0;
+    padding-left: 0;
 }
 
 .navbar ul li {
@@ -40,6 +42,7 @@ body {
     font-size: 24px;
     text-decoration: none;
     display: block;
+    transition: all 0.3s ease;
     text-align: center;
 }
 
@@ -49,34 +52,65 @@ body {
 
 /* Content Styling */
 .content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 30px;
+    margin-left: 100px; /* Adjust for navbar width */
+    padding: 20px;
+    width: calc(100% - 100px); /* Prevent content from extending off-screen */
 }
 
 section {
-    margin: 40px 0;
+    margin: 20px auto;
+    padding: 40px;
+    background: #fff;
+    max-width: 1200px; /* Keeps sections at a manageable width */
+    text-align: center; /* Centers text */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 section h2 {
-    text-align: center;
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    font-size: 2.5em;
     color: #2c3e50;
 }
 
-/* Fix Project Section Cards */
+section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
 .project-card {
     background-color: #ecf0f1;
     padding: 20px;
     margin: 20px 0;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Keeps project descriptions aligned left */
 }
 
 .project-card h3 {
-    font-size: 1.8em;
+    font-size: 1.8rem;
     margin-bottom: 10px;
+}
+
+.project-card a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.project-card a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Responsive Design */
@@ -84,7 +118,16 @@ section h2 {
     .navbar {
         width: 60px;
     }
+
     .content {
-        padding: 20px;
+        margin-left: 70px;
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+
+    section p {
+        font-size: 1rem;
     }
 }
