@@ -239,7 +239,7 @@ footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted)
     <li><a href="#awards">Awards</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:jacob.lennon@icloud.com" class="nav-cta">Hire Me</a>
+  <a href="/cdn-cgi/l/email-protection#751f14161a175b19101b1b1a1b351c16191a00115b161a18" class="nav-cta">Hire Me</a>
 </nav>
 
 <!-- HERO -->
@@ -415,23 +415,31 @@ footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted)
   <div class="proj-grid">
     <div class="pc stag">
       <div class="pc-num">01 — Python / CLI</div>
-      <h3 class="pc-title">Voting Center Application</h3>
-      <p class="pc-desc">A Python CLI application managing a full voting system — age-based eligibility, candidate selection, vote tallying, and result output. Built as part of DCU Computing for Business coursework.</p>
+      <h3 class="pc-title">Voting Centre System</h3>
+      <p class="pc-desc">A Python CLI voting application with age verification, candidate selection, live vote tallying, visual results bars, percentage breakdowns, and tie detection. Features a full menu system and robust input validation.</p>
       <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Control Flow</span><span class="stk">Data Validation</span></div>
-      <a href="https://github.com/jacoblennon" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+      <a href="https://github.com/jacoblennon/voting-system" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
     </div>
     <div class="pc stag">
-      <div class="pc-num">02 — Web Development</div>
+      <div class="pc-num">02 — Python / CLI</div>
+      <h3 class="pc-title">Budget &amp; Expense Tracker</h3>
+      <p class="pc-desc">A CLI personal finance tool to set monthly budgets, log expenses across categories, and view summaries with visual progress bars. Includes over-budget warnings, category breakdowns, and expense management.</p>
+      <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Data Structures</span><span class="stk">Finance Logic</span></div>
+      <a href="https://github.com/jacoblennon/budget-track" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="pc stag">
+      <div class="pc-num">03 — Python / CLI</div>
+      <h3 class="pc-title">Password Generator</h3>
+      <p class="pc-desc">A secure password generator with customisable length and character sets, a strength checker with improvement tips, and an in-session vault to save and label passwords. Uses Python's secrets-safe random module.</p>
+      <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Security</span><span class="stk">Regex</span></div>
+      <a href="https://github.com/jacoblennon/pass-gen" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="pc stag">
+      <div class="pc-num">04 — Web Development</div>
       <h3 class="pc-title">Personal Portfolio Website</h3>
-      <p class="pc-desc">This site — hand-coded from scratch with semantic HTML, CSS animations, and vanilla JS. Designed to present experience, skills, and projects to recruiters and collaborators professionally.</p>
+      <p class="pc-desc">This site — hand-coded from scratch with semantic HTML, CSS animations, and vanilla JS. Features a custom cursor, animated ambient background, scroll-triggered reveals, and a fully responsive layout.</p>
       <div class="pc-stack"><span class="stk">HTML</span><span class="stk">CSS</span><span class="stk">JavaScript</span><span class="stk">GitHub Pages</span></div>
       <a href="https://github.com/jacoblennon/jacoblennon.github.io" target="_blank" class="pc-link">View Source <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="pc stag wip">
-      <div class="pc-num">03 — In Progress</div>
-      <h3 class="pc-title">Next Project</h3>
-      <p class="pc-desc">Something new is being built. Check GitHub for updates.</p>
-      <div class="pc-stack"><span class="stk">TBD</span></div>
     </div>
   </div>
 </section>
@@ -530,9 +538,9 @@ footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted)
       <h2 class="sec-h">Let's <em>Connect</em></h2>
       <p class="c-blurb">Whether you're a <strong>recruiter, colleague, or collaborator</strong> — I'd love to hear from you. Open to part-time roles, internships, placements, and interesting conversations about tech and business.</p>
       <div class="c-links">
-        <a href="mailto:jacob.lennon@icloud.com" class="c-link">
+        <a href="/cdn-cgi/l/email-protection#c2a8a3a1ada0ecaea7acacadac82aba1aeadb7a6eca1adaf" class="c-link">
           <i class="fas fa-envelope"></i>
-          <span>jacob.lennon@icloud.com</span>
+          <span><span class="__cf_email__" data-cfemail="fc969d9f939ed2909992929392bc959f90938998d29f9391">[email&#160;protected]</span></span>
           <span class="arr"><i class="fas fa-arrow-right"></i></span>
         </a>
         <a href="https://www.linkedin.com/in/jacob-lennon-72602622b/" target="_blank" class="c-link">
@@ -578,7 +586,7 @@ footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted)
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Custom cursor
 const cur=document.getElementById('cur'), curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
@@ -596,14 +604,4 @@ window.addEventListener('scroll',()=>{
   navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
 });
 
-// Scroll reveals
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
-},{threshold:.1});
-document.querySelectorAll('.stag').forEach((el,i)=>{
-  el.style.transitionDelay=(i%4)*.1+'s';
-  io.observe(el);
-});
-</script>
-</body>
-</html>
+//
