@@ -3,584 +3,1479 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jacob Lennon — CS &amp; Business | DCU</title>
-<meta name="description" content="Jacob Lennon — BSc Computing for Business student at DCU. NOC Analyst, Admin Lead, and aspiring tech professional based in Ireland.">
+<title>Jacob Lennon — CS & Business</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #080810;
-  --bg2:     #0d0d18;
-  --bg3:     #111122;
-  --card:    #0f0f1e;
-  --border:  #1e1e35;
-  --border2: #2a2a45;
-  --accent:  #4fffb0;
-  --accent2: #6366f1;
-  --accent3: #f97316;
-  --text:    #e2e2f0;
-  --muted:   #5a5a7a;
-  --muted2:  #c8c8e0;
+  :root {
+    --bg: #04040a;
+    --bg2: #090912;
+    --bg3: #0f0f1e;
+    --surface: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.14);
+    --accent: #00ff94;
+    --accent2: #7c3aed;
+    --accent-dim: rgba(0,255,148,0.12);
+    --text: #eeeef8;
+    --muted: #9090a8;
+    --faint: #55556a;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Outfit', sans-serif;
+  }
 
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Cabinet Grotesk', sans-serif; overflow-x: hidden; cursor: auto; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* CURSOR */
-#cur, #curR { display: none !important; }
+  html { scroll-behavior: smooth; }
 
-/* GRAIN */
-body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:.35; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-/* GRID */
-.grid-bg { position:fixed; inset:0; z-index:0; pointer-events:none; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:80px 80px; opacity:.15; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%); }
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,255,148,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: width 0.35s cubic-bezier(0.25,1,0.5,1), height 0.35s cubic-bezier(0.25,1,0.5,1), border-color 0.2s;
+  }
+  body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring {
+    width: 56px; height: 56px; border-color: var(--accent);
+  }
 
-/* ORBS */
-.orb { position:fixed; border-radius:50%; filter:blur(110px); pointer-events:none; z-index:0; animation:orbDrift 18s ease-in-out infinite alternate; }
-.orb1 { width:700px; height:700px; background:radial-gradient(circle,#6366f135,transparent 70%); top:-250px; right:-180px; }
-.orb2 { width:450px; height:450px; background:radial-gradient(circle,#4fffb018,transparent 70%); bottom:5%; left:-120px; animation-delay:-6s; }
-.orb3 { width:300px; height:300px; background:radial-gradient(circle,#f9731612,transparent 70%); top:40%; left:42%; animation-delay:-12s; }
-@keyframes orbDrift { from{transform:translate(0,0) scale(1)} to{transform:translate(40px,30px) scale(1.07)} }
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* SCROLLBAR */
-#home { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:8rem 3.5rem 4rem; position:relative; z-index:1; }
-.hero-eyebrow { font-family:'DM Mono',monospace; font-size:.72rem; color:var(--accent); letter-spacing:.2em; text-transform:uppercase; display:flex; align-items:center; gap:1rem; margin-bottom:1.8rem; opacity:0; animation:fadeUp .6s .1s ease forwards; }
-.hero-eyebrow::before { content:''; display:block; width:50px; height:1px; background:var(--accent); }
-.hero-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(79,255,176,.08); border:1px solid rgba(79,255,176,.2); padding:.35rem .9rem; border-radius:20px; font-family:'DM Mono',monospace; font-size:.68rem; color:var(--accent); letter-spacing:.08em; margin-bottom:2.5rem; opacity:0; animation:fadeUp .6s .2s ease forwards; }
-.hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:block; box-shadow:0 0 8px var(--accent); animation:blink 2s ease-in-out infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
-.hero-name { font-size:clamp(4rem,9.5vw,9rem); font-weight:900; line-height:.9; letter-spacing:-.04em; margin-bottom:.5rem; opacity:0; animation:fadeUp .7s .3s ease forwards; }
-.hero-name .ghost { display:block; color:transparent; -webkit-text-stroke:1.5px var(--border2); transition:-webkit-text-stroke-color .4s; }
-.hero-name .ghost:hover { -webkit-text-stroke-color:var(--muted); }
-.hero-tagline { font-size:clamp(1rem,1.8vw,1.2rem); color:var(--muted2); font-weight:400; line-height:1.7; max-width:600px; margin:1.5rem 0 2.5rem; opacity:0; animation:fadeUp .7s .45s ease forwards; }
-.hero-tagline strong { color:var(--text); font-weight:700; }
-.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp .7s .6s ease forwards; }
-.btn { display:inline-flex; align-items:center; gap:.55rem; padding:.85rem 1.8rem; border-radius:5px; font-family:'DM Mono',monospace; font-size:.76rem; letter-spacing:.07em; cursor:pointer; text-decoration:none; transition:all .22s; border:none; }
-.btn-fill { background:var(--accent); color:#000; font-weight:500; }
-.btn-fill:hover { background:#3de8a0; transform:translateY(-2px); box-shadow:0 10px 35px rgba(79,255,176,.22); }
-.btn-outline { background:transparent; color:var(--text); border:1px solid var(--border2); }
-.btn-outline:hover { border-color:var(--accent2); color:var(--accent2); }
-.hero-stats { display:flex; gap:3rem; margin-top:4.5rem; padding-top:2.5rem; border-top:1px solid var(--border); opacity:0; animation:fadeUp .7s .75s ease forwards; flex-wrap:wrap; }
-.stat-num { font-size:2.2rem; font-weight:900; color:var(--text); letter-spacing:-.04em; }
-.stat-num span { color:var(--accent); }
-.stat-label { font-family:'DM Mono',monospace; font-size:.65rem; color:var(--muted); letter-spacing:.12em; margin-top:.2rem; text-transform:uppercase; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 5vw;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(4,4,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 8px 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    cursor: none;
+  }
+  .nav-cta:hover { opacity: 0.85; }
 
-/* SECTION */
-section { position:relative; z-index:1; padding:7rem 3.5rem; }
-section p { color:var(--muted2); }
-.stag { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
-.stag.vis { opacity:1; transform:none; }
-.sec-tag { font-family:'DM Mono',monospace; font-size:.67rem; color:var(--accent); letter-spacing:.25em; text-transform:uppercase; display:flex; align-items:center; gap:.8rem; margin-bottom:1rem; }
-.sec-tag::before { content:''; display:block; width:28px; height:1px; background:var(--accent); }
-.sec-h { font-size:clamp(2.2rem,4.5vw,4rem); font-weight:900; letter-spacing:-.03em; line-height:1.05; margin-bottom:3.5rem; }
-.sec-h em { font-style:normal; color:var(--accent2); }
+  /* HERO */
+  #home {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 5vw 80px;
+    overflow: hidden;
+  }
 
-/* ABOUT */
-#about { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.about-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:6rem; align-items:start; max-width:1200px; }
-.bio p { color:var(--muted2); line-height:1.85; font-size:1.05rem; margin-bottom:1.1rem; }
-.bio p strong { color:var(--text); }
-.bio p em { color:var(--accent); font-style:normal; }
-.aside { display:flex; flex-direction:column; gap:1.8rem; }
-.aside-box { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1.6rem; }
-.aside-label { font-family:'DM Mono',monospace; font-size:.66rem; color:var(--muted); letter-spacing:.18em; text-transform:uppercase; margin-bottom:1.2rem; }
-.chips { display:flex; flex-wrap:wrap; gap:.45rem; }
-.chip { padding:.28rem .75rem; background:var(--bg3); border:1px solid var(--border2); border-radius:3px; font-family:'DM Mono',monospace; font-size:.7rem; color:var(--text); transition:all .2s; }
-.chip:hover { border-color:var(--accent); color:var(--accent); background:rgba(79,255,176,.06); }
-.lang-row { display:flex; align-items:center; gap:.8rem; margin-bottom:.75rem; }
-.lang-name { font-weight:700; font-size:.9rem; }
-.lang-lvl { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted); margin-left:auto; }
-.dots { display:flex; gap:3px; }
-.dot { width:8px; height:8px; border-radius:50%; border:1px solid var(--border2); }
-.dot.on { background:var(--accent); border-color:var(--accent); }
-.rec-q { font-size:2.5rem; color:var(--accent2); line-height:1; opacity:.5; margin-bottom:.3rem; }
-.rec-txt { font-size:.87rem; color:var(--muted2); line-height:1.7; font-style:italic; margin-bottom:1.2rem; }
-.rec-who .rn { font-weight:700; font-size:.9rem; }
-.rec-who .rr { font-family:'DM Mono',monospace; font-size:.67rem; color:var(--accent); margin-top:.1rem; }
+  canvas#particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
 
-/* EXPERIENCE */
-.exp-list { max-width:940px; }
-.exp-item { display:grid; grid-template-columns:200px 1fr; gap:3rem; padding:2.8rem 0; border-bottom:1px solid var(--border); }
-.exp-item:last-child { border-bottom:none; }
-.exp-date { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--muted); letter-spacing:.08em; margin-bottom:.6rem; line-height:1.5; }
-.exp-badge { display:inline-block; padding:.2rem .6rem; background:rgba(99,102,241,.12); border:1px solid rgba(99,102,241,.28); border-radius:3px; font-family:'DM Mono',monospace; font-size:.63rem; color:#a5b4fc; letter-spacing:.07em; }
-.exp-role { font-size:1.2rem; font-weight:800; margin-bottom:.3rem; line-height:1.2; }
-.exp-co { color:var(--accent); font-family:'DM Mono',monospace; font-size:.8rem; margin-bottom:.15rem; }
-.exp-loc { color:var(--muted); font-family:'DM Mono',monospace; font-size:.68rem; margin-bottom:1rem; }
-.exp-desc { color:var(--muted2); font-size:.9rem; line-height:1.75; margin-bottom:.9rem; }
-.exp-buls { list-style:none; display:flex; flex-direction:column; gap:.4rem; margin-bottom:.9rem; }
-.exp-buls li { font-size:.87rem; color:var(--muted2); line-height:1.6; padding-left:1.2rem; position:relative; }
-.exp-buls li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:.78rem; }
-.exp-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
-.etag { padding:.2rem .6rem; background:rgba(79,255,176,.07); border:1px solid rgba(79,255,176,.18); border-radius:3px; font-family:'DM Mono',monospace; font-size:.63rem; color:var(--accent); }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+  }
 
-/* PROJECTS */
-#projects { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.proj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:1.5rem; max-width:1200px; }
-.pc { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:2rem; position:relative; overflow:hidden; transition:transform .25s,box-shadow .25s,border-color .25s; }
-.pc::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent2),var(--accent)); transform:scaleX(0); transform-origin:left; transition:transform .35s; }
-.pc:hover { transform:translateY(-5px); box-shadow:0 25px 60px rgba(0,0,0,.5); border-color:var(--border2); }
-.pc:hover::before { transform:scaleX(1); }
-.pc-num { font-family:'DM Mono',monospace; font-size:.63rem; color:var(--muted); letter-spacing:.15em; margin-bottom:1.2rem; }
-.pc-title { font-size:1.2rem; font-weight:800; margin-bottom:.65rem; line-height:1.25; }
-.pc-desc { color:var(--muted2); font-size:.88rem; line-height:1.7; margin-bottom:1.4rem; }
-.pc-stack { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.4rem; }
-.stk { padding:.22rem .62rem; background:rgba(99,102,241,.1); border:1px solid rgba(99,102,241,.25); border-radius:3px; font-family:'DM Mono',monospace; font-size:.63rem; color:#a5b4fc; }
-.pc-link { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; gap:.4rem; transition:gap .2s; }
-.pc-link:hover { gap:.75rem; }
-.pc.wip { border-style:dashed; opacity:.5; }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
 
-/* EDUCATION */
-.edu-list { max-width:940px; }
-.edu-item { display:grid; grid-template-columns:200px 1fr; gap:3rem; padding:2.8rem 0; border-bottom:1px solid var(--border); }
-.edu-item:last-child { border-bottom:none; }
-.edu-yr { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--muted); line-height:1.6; padding-top:.3rem; }
-.edu-deg { font-size:1.2rem; font-weight:800; margin-bottom:.3rem; }
-.edu-sch { color:var(--accent); font-family:'DM Mono',monospace; font-size:.8rem; margin-bottom:.7rem; }
-.edu-det { color:var(--muted2); font-size:.88rem; line-height:1.7; margin-bottom:.9rem; }
-.mods { display:flex; flex-wrap:wrap; gap:.4rem; }
-.mod { padding:.2rem .6rem; background:var(--bg3); border:1px solid var(--border2); border-radius:3px; font-family:'DM Mono',monospace; font-size:.63rem; color:var(--muted2); }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 10vw, 140px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
 
-/* AWARDS */
-#awards { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.aw-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; max-width:1000px; }
-.aw-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1.8rem; display:flex; gap:1.3rem; align-items:flex-start; transition:border-color .2s,transform .2s; }
-.aw-card:hover { border-color:var(--accent3); transform:translateY(-3px); }
-.aw-icon { width:42px; height:42px; border-radius:10px; flex-shrink:0; background:rgba(249,115,22,.12); border:1px solid rgba(249,115,22,.25); display:flex; align-items:center; justify-content:center; color:var(--accent3); font-size:1rem; }
-.aw-name { font-weight:800; font-size:1rem; margin-bottom:.3rem; line-height:1.3; }
-.aw-iss { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--accent3); margin-bottom:.5rem; }
-.aw-desc { color:var(--muted2); font-size:.83rem; line-height:1.65; }
+  .hero-desc {
+    font-size: clamp(15px, 2vw, 18px);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
 
-/* SOCIETIES */
-.soc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1.2rem; max-width:940px; }
-.soc-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1.6rem; transition:border-color .2s; }
-.soc-card:hover { border-color:var(--accent2); }
-.soc-name { font-weight:800; font-size:1rem; margin-bottom:.3rem; }
-.soc-period { font-family:'DM Mono',monospace; font-size:.67rem; color:var(--accent2); margin-bottom:.7rem; }
-.soc-desc { color:var(--muted2); font-size:.83rem; line-height:1.65; }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
 
-/* CONTACT */
-#contact { border-top:1px solid var(--border); }
-.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; max-width:1100px; align-items:start; }
-.c-blurb { color:var(--muted2); font-size:1.05rem; line-height:1.8; margin-bottom:2.5rem; }
-.c-blurb strong { color:var(--text); }
-.c-links { display:flex; flex-direction:column; gap:.8rem; }
-.c-link { display:flex; align-items:center; gap:1.2rem; padding:1.1rem 1.4rem; background:var(--card); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text); transition:all .22s; }
-.c-link:hover { border-color:var(--accent); color:var(--accent); transform:translateX(5px); }
-.c-link i { width:18px; font-size:1rem; color:var(--accent2); flex-shrink:0; }
-.c-link span { font-family:'DM Mono',monospace; font-size:.78rem; flex:1; }
-.c-link .arr { color:var(--muted); font-size:.75rem; }
-.c-link:hover .arr { color:var(--accent); }
-.c-right { display:flex; flex-direction:column; gap:1.5rem; padding-top:1rem; }
-.cta-box { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:2.2rem; text-align:center; }
-.cta-box h3 { font-size:1.4rem; font-weight:800; margin-bottom:.7rem; }
-.cta-box p { color:var(--muted2); font-size:.9rem; line-height:1.65; margin-bottom:1.5rem; }
-.avail { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1rem; }
-.av-dot { width:10px; height:10px; border-radius:50%; background:var(--accent); flex-shrink:0; box-shadow:0 0 10px var(--accent); animation:blink 2s ease-in-out infinite; }
-.av-txt { font-family:'DM Mono',monospace; font-size:.73rem; color:var(--muted2); }
-.av-txt strong { color:var(--accent); }
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    cursor: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
 
-/* FOOTER */
-footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:1.8rem 3.5rem; display:flex; align-items:center; justify-content:space-between; }
-footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted); }
-.flinks { display:flex; gap:1.5rem; }
-.flinks a { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted); text-decoration:none; transition:color .2s; }
-.flinks a:hover { color:var(--accent); }
+  .btn-ghost {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text); transform: translateY(-2px); }
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  nav { padding:1rem 1.5rem; }
-  .nav-links { display:none; }
-  section { padding:5rem 1.5rem; }
-  #home { padding:7rem 1.5rem 3rem; }
-  .about-grid,.contact-grid { grid-template-columns:1fr; gap:3rem; }
-  .exp-item,.edu-item { grid-template-columns:1fr; gap:.6rem; }
-  .hero-stats { gap:2rem; }
-  footer { flex-direction:column; gap:1rem; text-align:center; }
-}
+  .hero-stats {
+    position: absolute;
+    right: 5vw;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .stat-item {
+    text-align: right;
+    border-right: 1px solid var(--border-strong);
+    padding-right: 20px;
+  }
+  .stat-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .scroll-line {
+    position: absolute;
+    bottom: 40px;
+    left: 5vw;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .scroll-line span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .scroll-line::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  /* SECTION STRUCTURE */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 120px 5vw;
+  }
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 64px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .quote-block {
+    margin-top: 40px;
+    padding: 28px 32px;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-dim);
+  }
+  .quote-block blockquote {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .quote-attr {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* SKILLS */
+  .skills-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .skill-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .skill-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .skill-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+  .skill-pct {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--faint);
+  }
+  .bar-track {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    background: var(--accent);
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tag:hover { color: var(--text); border-color: var(--border-strong); }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 72px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -44px;
+    top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--accent);
+  }
+
+  .tl-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .tl-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .tl-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+  }
+
+  .tl-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .tl-company {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+  .tl-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 680px;
+    margin-bottom: 16px;
+  }
+  .tl-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 680px;
+  }
+  .tl-bullets li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--faint);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .tl-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .tl-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tl-skill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 4px 10px;
+    border: 1px solid rgba(0,255,148,0.2);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .project-card {
+    background: var(--bg);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s, background 0.3s;
+  }
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .project-card:hover { background: var(--bg3); }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--faint);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .project-num::after {
+    content: '';
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 40px;
+  }
+
+  .project-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+  .project-tech span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+  }
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+    cursor: none;
+  }
+  .project-link::after { content: '→'; }
+  .project-link:hover { gap: 12px; }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+  .edu-card {
+    background: var(--bg);
+    padding: 48px 44px;
+    transition: background 0.3s;
+  }
+  .edu-card:hover { background: var(--bg3); }
+  .edu-years {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .edu-active {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 2px 8px;
+    font-weight: 500;
+  }
+  .edu-degree {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .edu-school {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .edu-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--faint);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* AWARDS */
+  .awards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--border);
+  }
+  .award-row {
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    gap: 40px;
+    align-items: center;
+    background: var(--bg);
+    padding: 32px 44px;
+    transition: background 0.3s;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s, transform 0.5s, background 0.3s;
+  }
+  .award-row.visible { opacity: 1; transform: translateY(0); }
+  .award-row:hover { background: var(--bg3); }
+  .award-year {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .award-name {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .award-source {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bg2);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-intro {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .contact-intro em { font-style: italic; color: var(--accent); }
+  .contact-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+  .open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0,255,148,0.3);
+    padding: 12px 20px;
+    background: var(--accent-dim);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .open-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--border);
+  }
+  .contact-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    padding: 24px 28px;
+    text-decoration: none;
+    transition: background 0.3s;
+    cursor: none;
+    group: true;
+  }
+  .contact-link-row:hover { background: var(--bg3); }
+  .cl-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 4px;
+  }
+  .cl-value {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .cl-arrow {
+    color: var(--accent);
+    font-size: 20px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .contact-link-row:hover .cl-arrow { opacity: 1; transform: translateX(0); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 40px 5vw;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+  }
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-stats { display: none; }
+    .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .award-row { grid-template-columns: 1fr; gap: 8px; }
+    .award-source { text-align: left; }
+    nav { padding: 0 24px; }
+    section { padding: 80px 24px; }
+    .timeline { padding-left: 24px; }
+    .timeline-item::before { left: -28px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
 </style>
 </head>
 <body>
-<div id="cur"></div>
-<div id="curR"></div>
-<div class="grid-bg"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
 
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-logo">jacob<span>@lennon</span>:~$</div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a class="nav-logo" href="#home">JL</a>
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#education">Education</a></li>
-    <li><a href="#awards">Awards</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:jacob.lennon@icloud.com" class="nav-cta">Hire Me</a>
+  <a class="nav-cta" href="mailto:jacob.lennon@icloud.com">Hire Me</a>
 </nav>
 
-<!-- HERO -->
 <section id="home">
-  <div class="hero-eyebrow">BSc Computing for Business · DCU · 2024–2028</div>
-  <div class="hero-badge">Open to Opportunities — Monitoring · Cloud · IT · Business Roles</div>
-  <h1 class="hero-name">
-    Jacob<br>
-    <span class="ghost">Lennon</span>
-  </h1>
-  <p class="hero-tagline">
-    CS &amp; Business student at <strong>Dublin City University</strong> with real-world experience across <strong>cloud infrastructure, FinTech, aviation security,</strong> and <strong>legal administration.</strong> I build at the intersection of technology and business strategy.
-  </p>
-  <div class="hero-actions">
-    <a href="#experience" class="btn btn-fill"><i class="fas fa-briefcase"></i> View Experience</a>
-    <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Get in Touch</a>
-    <a href="https://github.com/jacoblennon" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+  <canvas id="particles"></canvas>
+  <div class="hero-inner">
+    <div class="hero-label">Available for opportunities · Dundalk, Ireland</div>
+    <h1 class="hero-name">Jacob<br><em>Lennon</em></h1>
+    <p class="hero-desc">
+      BSc Computing for Business · Dublin City University.<br>
+      Cloud infrastructure, FinTech operations, and the intersection of technology and business strategy.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#experience">View Experience</a>
+      <a class="btn-ghost" href="#contact">Get in Touch</a>
+      <a class="btn-ghost" href="https://github.com/jacoblennon" target="_blank">GitHub</a>
+    </div>
   </div>
+
   <div class="hero-stats">
-    <div><div class="stat-num">4<span>+</span></div><div class="stat-label">Roles Held</div></div>
-    <div><div class="stat-num">3<span>+</span></div><div class="stat-label">Industries</div></div>
-    <div><div class="stat-num">2<span>×</span></div><div class="stat-label">Academic Awards</div></div>
-    <div><div class="stat-num">500<span>+</span></div><div class="stat-label">Connections</div></div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="4">0</span>
+      <span class="stat-label">Roles Held</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="3">0</span>
+      <span class="stat-label">Industries</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="2">0</span>
+      <span class="stat-label">Academic Awards</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Connections</span>
+    </div>
+  </div>
+
+  <div class="scroll-line">
+    <span>Scroll</span>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
-  <div class="sec-tag">About</div>
-  <h2 class="sec-h">Who I Am</h2>
+  <div class="section-label">Profile</div>
   <div class="about-grid">
-    <div class="bio stag">
-      <p>I'm <strong>Jacob Lennon</strong>, a motivated and forward-thinking <em>Computer Science &amp; Business student</em> at Dublin City University, with a deep passion for technology, cloud computing, and how smart systems drive real business impact.</p>
-      <p>I bring a blend of <strong>technical ability, analytical thinking, and strong communication</strong> that lets me understand problems quickly and contribute meaningful solutions across fast-moving environments.</p>
-      <p>I've had the opportunity to work across <strong>IT infrastructure, financial operations, aviation security,</strong> and <strong>legal administration</strong> — consistently helping teams operate more efficiently and adapt to change.</p>
-      <p>Outside of work and study, I'm a <em>horse rider, rugby player,</em> and tech enthusiast. I thrive in roles where <strong>learning, collaboration, and continuous improvement</strong> are at the core.</p>
+    <div class="about-text reveal">
+      <p>
+        I'm a <strong>motivated and forward-thinking Computer Science & Business student</strong> at Dublin City University, with a deep passion for technology, cloud computing, and how smart systems drive real business impact.
+      </p>
+      <p>
+        I bring a blend of <strong>technical ability, analytical thinking, and strong communication</strong> that lets me understand problems quickly and contribute meaningful solutions across fast-moving environments.
+      </p>
+      <p>
+        I've worked across <strong>cloud infrastructure, FinTech operations, aviation security,</strong> and <strong>legal administration</strong> — consistently helping teams operate more efficiently.
+      </p>
+      <p>
+        Outside of work and study, I'm a horse rider, rugby player, and tech enthusiast.
+      </p>
+      <div class="quote-block">
+        <blockquote>"Jacob is intelligent, responsible and a personable young man. He came in early every morning to finish tasks and was very dedicated. I am sure he will excel at whatever he undertakes."</blockquote>
+        <div class="quote-attr">Megan Murphy Byrne · Solicitor & L&D Manager · William Fry LLP</div>
+      </div>
+      <div class="tags-cloud">
+        <span class="tag">Cloud Monitoring</span>
+        <span class="tag">Incident Response</span>
+        <span class="tag">NOC Operations</span>
+        <span class="tag">Python</span>
+        <span class="tag">HTML / CSS</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Git</span>
+        <span class="tag">ClickUp</span>
+        <span class="tag">CRM Systems</span>
+        <span class="tag">SLA Management</span>
+        <span class="tag">Jira</span>
+        <span class="tag">Grafana</span>
+        <span class="tag">Prometheus</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Business Analysis</span>
+      </div>
     </div>
-    <div class="aside">
-      <div class="aside-box stag">
-        <div class="aside-label">Technical &amp; Professional Skills</div>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">HTML / CSS</span><span class="chip">SQL</span>
-          <span class="chip">Git</span><span class="chip">Cloud Monitoring</span><span class="chip">NOC Operations</span>
-          <span class="chip">Incident Response</span><span class="chip">ClickUp</span><span class="chip">CRM Systems</span>
-          <span class="chip">POS Systems</span><span class="chip">Business Analysis</span><span class="chip">Report Writing</span>
-          <span class="chip">Stakeholder Comms</span><span class="chip">Cash Handling</span>
+    <div class="skills-panel reveal" style="transition-delay: 0.15s;">
+      <div class="section-label" style="margin-bottom: 32px;">Core Competencies</div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Cloud / NOC Operations</span>
+          <span class="skill-pct">90%</span>
         </div>
+        <div class="bar-track"><div class="bar-fill" data-width="90"></div></div>
       </div>
-      <div class="aside-box stag">
-        <div class="aside-label">Languages</div>
-        <div class="lang-row">
-          <span class="lang-name">English</span>
-          <div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>
-          <span class="lang-lvl">Native</span>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Incident Response & Monitoring</span>
+          <span class="skill-pct">88%</span>
         </div>
-        <div class="lang-row">
-          <span class="lang-name">Irish</span>
-          <div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-          <span class="lang-lvl">Conversational</span>
-        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="88"></div></div>
       </div>
-      <div class="aside-box stag">
-        <div class="aside-label">Recommendation</div>
-        <div class="rec-q">"</div>
-        <p class="rec-txt">Jacob is intelligent, responsible and a personable young man. He came in early every morning to finish tasks and was very dedicated. I am sure he will excel at whatever he undertakes.</p>
-        <div class="rec-who">
-          <div class="rn">Megan Murphy Byrne</div>
-          <div class="rr">Solicitor &amp; L&amp;D Manager · William Fry LLP</div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Python & CLI Development</span>
+          <span class="skill-pct">75%</span>
         </div>
+        <div class="bar-track"><div class="bar-fill" data-width="75"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">HTML / CSS / JavaScript</span>
+          <span class="skill-pct">72%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="72"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Business Operations & CRM</span>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Stakeholder Communication</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Aviation & Regulatory Compliance</span>
+          <span class="skill-pct">78%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="78"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-meta">
+          <span class="skill-name">Documentation & Reporting</span>
+          <span class="skill-pct">82%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="sec-tag">Career</div>
-  <h2 class="sec-h">Experience</h2>
-  <div class="exp-list">
+  <div class="section-label">Career</div>
+  <h2 class="section-title reveal">Work <em>Experience</em></h2>
+  <div class="timeline">
 
-    <div class="exp-item stag">
-      <div>
-        <div class="exp-date">Sep 2025 — Present<br>7 months</div>
-        <div class="exp-badge">Part-time · Remote</div>
+    <div class="timeline-item">
+      <div class="tl-meta">
+        <span class="tl-date">Sep 2025 — Present</span>
+        <span class="tl-badge">Part-time · Remote</span>
+        <span class="tl-badge">8 months</span>
       </div>
-      <div>
-        <div class="exp-role">Network Operations Center Analyst</div>
-        <div class="exp-co">K2 Cloud Engineering</div>
-        <div class="exp-loc"><i class="fas fa-map-marker-alt" style="font-size:.62rem;margin-right:.3rem"></i>Ireland · Remote</div>
-        <p class="exp-desc">Part of the NOC team supporting a global tech organisation — responsible for real-time monitoring, incident response, and ensuring reliability across cloud-based systems and infrastructure.</p>
-        <ul class="exp-buls">
-          <li>Monitor system, network, and application alerts across multiple cloud platforms</li>
-          <li>Investigate incidents and escalate following established workflows and SLAs</li>
-          <li>Produce detailed incident reports and logs to support root-cause analysis</li>
-          <li>Proactively identify patterns and recurring alerts to maintain uptime</li>
-          <li>Collaborate with engineering teams to resolve issues and optimise performance</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="etag">Cloud Monitoring</span><span class="etag">Incident Response</span>
-          <span class="etag">ClickUp</span><span class="etag">NOC</span><span class="etag">SLA Management</span>
-        </div>
+      <div class="tl-title">Network Operations Center Analyst</div>
+      <div class="tl-company">K2 Cloud Engineering · Ireland</div>
+      <p class="tl-desc">Part of the NOC team supporting a global tech organisation — responsible for real-time monitoring, incident response, and ensuring reliability across cloud-based systems and infrastructure.</p>
+      <ul class="tl-bullets">
+        <li>Monitor system, network, and application alerts across multiple cloud platforms</li>
+        <li>Investigate incidents and escalate following established workflows and SLAs</li>
+        <li>Produce detailed incident reports and logs to support root-cause analysis</li>
+        <li>Proactively identify patterns and recurring alerts to maintain uptime</li>
+        <li>Collaborate with engineering teams to resolve issues and optimise performance</li>
+      </ul>
+      <div class="tl-skills">
+        <span class="tl-skill">Cloud Monitoring</span>
+        <span class="tl-skill">Incident Response</span>
+        <span class="tl-skill">ClickUp</span>
+        <span class="tl-skill">NOC</span>
+        <span class="tl-skill">SLA Management</span>
       </div>
     </div>
 
-    <div class="exp-item stag">
-      <div>
-        <div class="exp-date">Dec 2024 — Present<br>1 yr 4 mos</div>
-        <div class="exp-badge">Part-time · Remote</div>
+    <div class="timeline-item">
+      <div class="tl-meta">
+        <span class="tl-date">Dec 2024 — Present</span>
+        <span class="tl-badge">Part-time · Remote</span>
+        <span class="tl-badge">1 yr 5 mos</span>
       </div>
-      <div>
-        <div class="exp-role">Admin Lead</div>
-        <div class="exp-co">Helix-Pay (FinTech)</div>
-        <div class="exp-loc"><i class="fas fa-map-marker-alt" style="font-size:.62rem;margin-right:.3rem"></i>Dublin · Remote</div>
-        <p class="exp-desc">Managing and optimising day-to-day administrative operations at a FinTech startup, working closely with C-level executives on strategic initiatives and cross-team coordination.</p>
-        <ul class="exp-buls">
-          <li>Provide high-level administrative support to C-suite, facilitating strategic initiatives</li>
-          <li>Maintain clear and efficient communication at all levels of the organisation</li>
-          <li>Manage CRM processes and support sales operations</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="etag">CRM</span><span class="etag">FinTech</span>
-          <span class="etag">Executive Support</span><span class="etag">Operations</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item stag">
-      <div>
-        <div class="exp-date">Jan 2026 — Present<br>3 months</div>
-        <div class="exp-badge">Part-time · On-site</div>
-      </div>
-      <div>
-        <div class="exp-role">Waiter</div>
-        <div class="exp-co">The Millhouse — Exclusive Georgian Manor House</div>
-        <div class="exp-loc"><i class="fas fa-map-marker-alt" style="font-size:.62rem;margin-right:.3rem"></i>Slane, Co. Meath</div>
-        <p class="exp-desc">Delivering high-standard front-of-house service at a premium venue, developing composure under pressure, attention to detail, and refined customer communication skills.</p>
-        <div class="exp-tags">
-          <span class="etag">Customer Service</span><span class="etag">Hospitality</span><span class="etag">Communication</span>
-        </div>
+      <div class="tl-title">Admin Lead</div>
+      <div class="tl-company">Helix-Pay (FinTech) · Dublin, Ireland</div>
+      <p class="tl-desc">Managing and optimising day-to-day administrative operations at a FinTech startup, working closely with C-level executives on strategic initiatives and cross-team coordination.</p>
+      <ul class="tl-bullets">
+        <li>Provide high-level administrative support to C-suite, facilitating strategic initiatives</li>
+        <li>Maintain clear and efficient communication at all levels of the organisation</li>
+        <li>Manage CRM processes and support sales and partnership operations</li>
+      </ul>
+      <div class="tl-skills">
+        <span class="tl-skill">CRM</span>
+        <span class="tl-skill">FinTech</span>
+        <span class="tl-skill">Executive Support</span>
+        <span class="tl-skill">Operations</span>
       </div>
     </div>
 
-    <div class="exp-item stag">
-      <div>
-        <div class="exp-date">May 2024 — Jan 2025<br>9 months</div>
-        <div class="exp-badge">Part-time · On-site</div>
+    <div class="timeline-item">
+      <div class="tl-meta">
+        <span class="tl-date">Nov 2022 — Jan 2024</span>
+        <span class="tl-badge">Part-time · Remote</span>
+        <span class="tl-badge">1 yr 3 mos</span>
       </div>
-      <div>
-        <div class="exp-role">Airport Search Unit Officer</div>
-        <div class="exp-co">daa (Dublin Airport Authority)</div>
-        <div class="exp-loc"><i class="fas fa-map-marker-alt" style="font-size:.62rem;margin-right:.3rem"></i>Dublin Airport</div>
-        <p class="exp-desc">Conducted comprehensive security screening at Dublin Airport, ensuring full compliance with regulatory requirements while delivering excellent customer service in a high-pressure environment.</p>
-        <ul class="exp-buls">
-          <li>Operated walk-through metal detectors and X-ray screening equipment</li>
-          <li>Controlled access to restricted areas, verifying boarding passes and permits</li>
-          <li>Managed queuing and congestion; reported security issues to management</li>
-          <li>Adhered strictly to fire, health, and safety protocols</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="etag">Security</span><span class="etag">Compliance</span>
-          <span class="etag">Aviation</span><span class="etag">Customer Service</span>
-        </div>
+      <div class="tl-title">Monitoring Engineer (NOC)</div>
+      <div class="tl-company">K2 Cloud Engineering · Ireland</div>
+      <p class="tl-desc">Monitored and managed cloud and on-premises infrastructure, ensuring system stability, high availability, and rapid incident resolution across managed platforms.</p>
+      <ul class="tl-bullets">
+        <li>Delivered first-level support, triaging alerts and escalating incidents to minimise disruption</li>
+        <li>Led incident response lifecycle from initial reporting through to resolution</li>
+        <li>Developed expertise in Jira, Grafana, Prometheus, Linux, and Windows environments</li>
+        <li>Contributed to continuous improvement initiatives within the NOC team</li>
+      </ul>
+      <div class="tl-skills">
+        <span class="tl-skill">Jira</span>
+        <span class="tl-skill">Grafana</span>
+        <span class="tl-skill">Prometheus</span>
+        <span class="tl-skill">Linux</span>
+        <span class="tl-skill">Atlassian</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-meta">
+        <span class="tl-date">Jul 2021 — Jul 2022</span>
+        <span class="tl-badge">Part-time</span>
+        <span class="tl-badge">1 yr 1 mo</span>
+      </div>
+      <div class="tl-title">Intern — General Admin / IT Associate</div>
+      <div class="tl-company">K2 Cloud Engineering · Drogheda, Ireland</div>
+      <p class="tl-desc">Gained foundational IT experience, assisting with user issues and general administrative tasks while working with innovative cloud technology and cutting-edge security solutions.</p>
+      <div class="tl-skills">
+        <span class="tl-skill">IT Support</span>
+        <span class="tl-skill">Cloud Technology</span>
+        <span class="tl-skill">Administration</span>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
-  <div class="sec-tag">Work</div>
-  <h2 class="sec-h">Projects</h2>
-  <div class="proj-grid">
-    <div class="pc stag">
-      <div class="pc-num">01 — Python / CLI</div>
-      <h3 class="pc-title">Voting Centre System</h3>
-      <p class="pc-desc">A Python CLI voting application with age verification, candidate selection, live vote tallying, visual results bars, percentage breakdowns, and tie detection. Features a full menu system and robust input validation.</p>
-      <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Control Flow</span><span class="stk">Data Validation</span></div>
-      <a href="https://github.com/jacoblennon/voting-system" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+  <div class="section-label">Work</div>
+  <h2 class="section-title reveal">Selected <em>Projects</em></h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-num">01 — Python / CLI</div>
+      <div class="project-title">Voting Centre System</div>
+      <p class="project-desc">A Python CLI voting application with age verification, candidate selection, live vote tallying, visual results bars, percentage breakdowns, and tie detection. Features a full menu system and robust input validation.</p>
+      <div class="project-tech">
+        <span>Python</span><span>CLI</span><span>Control Flow</span><span>Data Validation</span>
+      </div>
+      <a class="project-link" href="https://github.com/jacoblennon/voting-system" target="_blank">View on GitHub</a>
     </div>
-    <div class="pc stag">
-      <div class="pc-num">02 — Python / CLI</div>
-      <h3 class="pc-title">Budget &amp; Expense Tracker</h3>
-      <p class="pc-desc">A CLI personal finance tool to set monthly budgets, log expenses across categories, and view summaries with visual progress bars. Includes over-budget warnings, category breakdowns, and expense management.</p>
-      <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Data Structures</span><span class="stk">Finance Logic</span></div>
-      <a href="https://github.com/jacoblennon/budget-track" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+
+    <div class="project-card">
+      <div class="project-num">02 — Python / CLI</div>
+      <div class="project-title">Budget & Expense Tracker</div>
+      <p class="project-desc">A CLI personal finance tool to set monthly budgets, log expenses across categories, and view summaries with visual progress bars. Includes over-budget warnings, category breakdowns, and full expense management.</p>
+      <div class="project-tech">
+        <span>Python</span><span>CLI</span><span>Data Structures</span><span>Finance Logic</span>
+      </div>
+      <a class="project-link" href="https://github.com/jacoblennon/budget-track" target="_blank">View on GitHub</a>
     </div>
-    <div class="pc stag">
-      <div class="pc-num">03 — Python / CLI</div>
-      <h3 class="pc-title">Password Generator</h3>
-      <p class="pc-desc">A secure password generator with customisable length and character sets, a strength checker with improvement tips, and an in-session vault to save and label passwords. Uses Python's secrets-safe random module.</p>
-      <div class="pc-stack"><span class="stk">Python</span><span class="stk">CLI</span><span class="stk">Security</span><span class="stk">Regex</span></div>
-      <a href="https://github.com/jacoblennon/pass-gen" target="_blank" class="pc-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+
+    <div class="project-card">
+      <div class="project-num">03 — Python / CLI</div>
+      <div class="project-title">Password Generator</div>
+      <p class="project-desc">A secure password generator with customisable length and character sets, a strength checker with improvement tips, and an in-session vault to save and label passwords. Uses Python's cryptographically safe <code>secrets</code> module.</p>
+      <div class="project-tech">
+        <span>Python</span><span>CLI</span><span>Security</span><span>Regex</span>
+      </div>
+      <a class="project-link" href="https://github.com/jacoblennon/pass-gen" target="_blank">View on GitHub</a>
     </div>
-    <div class="pc stag">
-      <div class="pc-num">04 — Web Development</div>
-      <h3 class="pc-title">Personal Portfolio Website</h3>
-      <p class="pc-desc">This site — hand-coded from scratch with semantic HTML, CSS animations, and vanilla JS. Features a custom cursor, animated ambient background, scroll-triggered reveals, and a fully responsive layout.</p>
-      <div class="pc-stack"><span class="stk">HTML</span><span class="stk">CSS</span><span class="stk">JavaScript</span><span class="stk">GitHub Pages</span></div>
-      <a href="https://github.com/jacoblennon/jacoblennon.github.io" target="_blank" class="pc-link">View Source <i class="fas fa-arrow-right"></i></a>
+
+    <div class="project-card">
+      <div class="project-num">04 — Web Development</div>
+      <div class="project-title">Personal Portfolio Website</div>
+      <p class="project-desc">Hand-coded from scratch with semantic HTML, CSS animations, and vanilla JS. Features a custom cursor, animated ambient background, scroll-triggered reveals, and a fully responsive layout — deployed on GitHub Pages.</p>
+      <div class="project-tech">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span>
+      </div>
+      <a class="project-link" href="https://github.com/jacoblennon/jacoblennon.github.io" target="_blank">View Source</a>
     </div>
+
   </div>
 </section>
 
-<!-- EDUCATION -->
 <section id="education">
-  <div class="sec-tag">Education</div>
-  <h2 class="sec-h">Academic <em>Background</em></h2>
-  <div class="edu-list">
-    <div class="edu-item stag">
-      <div class="edu-yr">Sep 2024 – Sep 2028<br><br>Current · Year 1</div>
-      <div>
-        <div class="edu-deg">BSc Computing for Business</div>
-        <div class="edu-sch">Dublin City University (DCU)</div>
-        <p class="edu-det">A programme integrating software development, data systems, and business strategy — covering coding, databases, networking, AI, cloud computing, entrepreneurship, and project management. Includes a 7-month industry placement in Year 3 and an optional study abroad semester.</p>
-        <div class="mods">
-          <span class="mod">Python</span><span class="mod">HTML / CSS</span><span class="mod">Databases</span>
-          <span class="mod">Networking</span><span class="mod">OS &amp; Systems</span><span class="mod">Cloud Computing</span>
-          <span class="mod">Entrepreneurship</span><span class="mod">Project Management</span><span class="mod">Business Analytics</span>
+  <div class="section-label">Academic Background</div>
+  <h2 class="section-title reveal">Education</h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-years">Sep 2024 — Sep 2028 <span class="edu-active">Current</span></div>
+      <div class="edu-degree">BSc Computing for Business</div>
+      <div class="edu-school">Dublin City University (DCU)</div>
+      <p class="edu-desc">A programme integrating software development, data systems, and business strategy — covering coding, databases, networking, AI, cloud computing, entrepreneurship, and project management. Includes a 7-month industry placement in Year 3 and optional study abroad.</p>
+      <div class="tags-cloud">
+        <span class="tag">Python</span><span class="tag">HTML / CSS</span><span class="tag">Databases</span>
+        <span class="tag">Networking</span><span class="tag">Cloud Computing</span><span class="tag">Entrepreneurship</span>
+        <span class="tag">Project Management</span>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-years">2017 — 2023</div>
+      <div class="edu-degree">Leaving Certificate</div>
+      <div class="edu-school">St. Mary's College (The Marist), Dundalk</div>
+      <p class="edu-desc">Completed the Irish Leaving Certificate across 7 subjects with a strong focus on business, economics, and STEM disciplines. Graduated with two academic excellence awards.</p>
+      <div class="tags-cloud">
+        <span class="tag">English</span><span class="tag">Irish</span><span class="tag">Mathematics</span>
+        <span class="tag">Business Studies</span><span class="tag">Economics</span>
+        <span class="tag">Construction Studies</span><span class="tag">History</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 64px;">
+    <div class="section-label" style="margin-bottom: 32px;">Recognition</div>
+    <div class="awards-list">
+      <div class="award-row">
+        <div class="award-year">May 2023</div>
+        <div>
+          <div class="award-name">Best Student — Extended Business Studies</div>
+          <div style="font-size:13px; color: var(--faint); margin-top:4px; font-family: var(--font-mono); letter-spacing: 0.04em;">Programme Head · St. Mary's College</div>
         </div>
+        <div class="award-source">Academic Excellence</div>
       </div>
-    </div>
-    <div class="edu-item stag">
-      <div class="edu-yr">2017 – 2023</div>
-      <div>
-        <div class="edu-deg">Leaving Certificate</div>
-        <div class="edu-sch">St. Mary's College (The Marist), Dundalk</div>
-        <p class="edu-det">Completed the Irish Leaving Certificate across 7 subjects with a strong focus on business, economics, and STEM.</p>
-        <div class="mods">
-          <span class="mod">English</span><span class="mod">Irish</span><span class="mod">Mathematics</span>
-          <span class="mod">Business Studies</span><span class="mod">Economics</span>
-          <span class="mod">Construction Studies</span><span class="mod">History</span>
+      <div class="award-row">
+        <div class="award-year">May 2022</div>
+        <div>
+          <div class="award-name">Recognition of Academic Excellence</div>
+          <div style="font-size:13px; color: var(--faint); margin-top:4px; font-family: var(--font-mono); letter-spacing: 0.04em;">School Principal · St. Mary's College</div>
         </div>
+        <div class="award-source">Academic Excellence</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 64px;">
+    <div class="section-label" style="margin-bottom: 32px;">Societies & Involvement</div>
+    <div class="awards-list">
+      <div class="award-row">
+        <div class="award-year">Dec 2023 — Present</div>
+        <div>
+          <div class="award-name">DCU Investment Society</div>
+          <div style="font-size:13px; color: var(--faint); margin-top:4px; font-family: var(--font-mono); letter-spacing: 0.04em;">Investment banking · PE · Asset Management · Student Managed Fund</div>
+        </div>
+        <div class="award-source">Dublin City University</div>
+      </div>
+      <div class="award-row">
+        <div class="award-year">Sep 2023 — Present</div>
+        <div>
+          <div class="award-name">Accounting & Finance Society</div>
+          <div style="font-size:13px; color: var(--faint); margin-top:4px; font-family: var(--font-mono); letter-spacing: 0.04em;">Academic events · charity initiatives · industry connections</div>
+        </div>
+        <div class="award-source">Dublin City University</div>
+      </div>
+      <div class="award-row">
+        <div class="award-year">Sep 2024 — Present</div>
+        <div>
+          <div class="award-name">Redbrick Society</div>
+          <div style="font-size:13px; color: var(--faint); margin-top:4px; font-family: var(--font-mono); letter-spacing: 0.04em;">DCU's computer science & technology society</div>
+        </div>
+        <div class="award-source">Dublin City University</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AWARDS -->
-<section id="awards">
-  <div class="sec-tag">Recognition</div>
-  <h2 class="sec-h">Awards &amp; <em>Honours</em></h2>
-  <div class="aw-grid">
-    <div class="aw-card stag">
-      <div class="aw-icon"><i class="fas fa-trophy"></i></div>
-      <div>
-        <div class="aw-name">Best Student — Extended Business Studies</div>
-        <div class="aw-iss">Programme Head · St. Mary's College · May 2023</div>
-        <p class="aw-desc">Awarded for academic excellence in the Extended Business Studies programme, integrating theory with enterprise, work placements, and personal development.</p>
-      </div>
-    </div>
-    <div class="aw-card stag">
-      <div class="aw-icon"><i class="fas fa-medal"></i></div>
-      <div>
-        <div class="aw-name">Recognition of Academic Excellence</div>
-        <div class="aw-iss">School Principal · St. Mary's College · May 2022</div>
-        <p class="aw-desc">Awarded by the school principal for exceptional academic performance and unwavering commitment to scholarly pursuits and continuous improvement.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SOCIETIES -->
-<section id="societies">
-  <div class="sec-tag">Community</div>
-  <h2 class="sec-h">Societies &amp; <em>Involvement</em></h2>
-  <div class="soc-grid">
-    <div class="soc-card stag">
-      <div class="soc-name">DCU Investment Society</div>
-      <div class="soc-period">Dec 2023 — Present · Member</div>
-      <p class="soc-desc">Bridges students with the finance industry through sessions from leading institutions, simulations, competitions, and a Student Managed Fund covering investment banking, PE, and asset management.</p>
-    </div>
-    <div class="soc-card stag">
-      <div class="soc-name">Accounting &amp; Finance Society</div>
-      <div class="soc-period">Sep 2023 — Present · Member</div>
-      <p class="soc-desc">One of DCU's largest societies — known for academic events, charity initiatives, and connecting students with industry professionals in accounting and finance.</p>
-    </div>
-    <div class="soc-card stag">
-      <div class="soc-name">Redbrick Society</div>
-      <div class="soc-period">Sep 2024 — Present · Member</div>
-      <p class="soc-desc">DCU's computer science and technology society — a community of students passionate about computing, engineering, and innovation.</p>
-    </div>
-    <div class="soc-card stag">
-      <div class="soc-name">Snow-sports Society</div>
-      <div class="soc-period">Sep 2024 — Present · Member</div>
-      <p class="soc-desc">Active member pursuing skiing and snowboarding alongside academics, reflecting a commitment to balance, challenge, and life beyond the screen.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
 <section id="contact">
+  <div class="section-label">Get in Touch</div>
   <div class="contact-grid">
-    <div>
-      <div class="sec-tag">Contact</div>
-      <h2 class="sec-h">Let's <em>Connect</em></h2>
-      <p class="c-blurb">Whether you're a <strong>recruiter, colleague, or collaborator</strong> — I'd love to hear from you. Open to part-time roles, internships, placements, and interesting conversations about tech and business.</p>
-      <div class="c-links">
-        <a href="mailto:jacob.lennon@icloud.com" class="c-link">
-          <i class="fas fa-envelope"></i>
-          <span>jacob.lennon@icloud.com</span>
-          <span class="arr"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="https://www.linkedin.com/in/jacob-lennon-72602622b/" target="_blank" class="c-link">
-          <i class="fab fa-linkedin"></i>
-          <span>linkedin.com/in/jacob-lennon-72602622b</span>
-          <span class="arr"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="https://github.com/jacoblennon" target="_blank" class="c-link">
-          <i class="fab fa-github"></i>
-          <span>github.com/jacoblennon</span>
-          <span class="arr"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a href="https://jacoblennon.github.io" target="_blank" class="c-link">
-          <i class="fas fa-globe"></i>
-          <span>jacoblennon.github.io</span>
-          <span class="arr"><i class="fas fa-arrow-right"></i></span>
-        </a>
+    <div class="reveal">
+      <div class="contact-intro">Let's <em>work</em><br>together.</div>
+      <p class="contact-sub">Whether you're a recruiter, colleague, or collaborator — I'd love to hear from you. Open to part-time roles, internships, placements, and interesting conversations about tech and business.</p>
+      <div class="open-badge">
+        <div class="open-dot"></div>
+        Open to opportunities
+      </div>
+      <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase;">Looking for</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="tag">Monitoring Engineer</span>
+          <span class="tag">Cloud Operations</span>
+          <span class="tag">IT Consulting</span>
+          <span class="tag">Project Management</span>
+          <span class="tag">Internship / Placement</span>
+        </div>
       </div>
     </div>
-    <div class="c-right stag">
-      <div class="cta-box">
-        <h3>Open to Opportunities</h3>
-        <p>Actively seeking part-time, internship, and placement roles in monitoring engineering, cloud operations, IT consulting, and project management.</p>
-        <a href="https://www.linkedin.com/in/jacob-lennon-72602622b/" target="_blank" class="btn btn-fill" style="justify-content:center;width:100%">
-          <i class="fab fa-linkedin"></i> Connect on LinkedIn
-        </a>
-      </div>
-      <div class="avail">
-        <div class="av-dot"></div>
-        <div class="av-txt"><strong>Available now</strong> — Dundalk, Co. Louth · Open to remote &amp; on-site roles across Ireland</div>
-      </div>
+    <div class="contact-links reveal" style="transition-delay: 0.15s;">
+      <a class="contact-link-row" href="mailto:jacob.lennon@icloud.com">
+        <div>
+          <div class="cl-label">Email</div>
+          <div class="cl-value">jacob.lennon@icloud.com</div>
+        </div>
+        <div class="cl-arrow">→</div>
+      </a>
+      <a class="contact-link-row" href="https://linkedin.com/in/jacob-lennon-72602622b" target="_blank">
+        <div>
+          <div class="cl-label">LinkedIn</div>
+          <div class="cl-value">jacob-lennon-72602622b</div>
+        </div>
+        <div class="cl-arrow">→</div>
+      </a>
+      <a class="contact-link-row" href="https://github.com/jacoblennon" target="_blank">
+        <div>
+          <div class="cl-label">GitHub</div>
+          <div class="cl-value">github.com/jacoblennon</div>
+        </div>
+        <div class="cl-arrow">→</div>
+      </a>
+      <a class="contact-link-row" href="https://jacoblennon.github.io" target="_blank">
+        <div>
+          <div class="cl-label">Portfolio</div>
+          <div class="cl-value">jacoblennon.github.io</div>
+        </div>
+        <div class="cl-arrow">→</div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2026 Jacob Lennon · BSc Computing for Business, DCU</p>
-  <div class="flinks">
-    <a href="https://linkedin.com/in/jacob-lennon-72602622b" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    <a href="https://github.com/jacoblennon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-    <a href="#home">↑ Back to top</a>
-  </div>
+  <span class="footer-copy">© 2026 Jacob Lennon · BSc Computing for Business, DCU</span>
+  <ul class="footer-links">
+    <li><a href="https://linkedin.com/in/jacob-lennon-72602622b" target="_blank">LinkedIn</a></li>
+    <li><a href="https://github.com/jacoblennon" target="_blank">GitHub</a></li>
+    <li><a href="mailto:jacob.lennon@icloud.com">Email</a></li>
+  </ul>
 </footer>
 
 <script>
-// Disabled custom cursor - using browser default for better UX
-document.body.style.cursor='auto';
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
 
-// Nav
-const navbar=document.getElementById('nav');
-const secs=document.querySelectorAll('section[id]');
-const navAs=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  navbar.classList.toggle('scrolled',scrollY>60);
-  let activeSec='';
-  secs.forEach(s=>{if(scrollY>=s.offsetTop-150)activeSec=s.id;});
-  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+activeSec));
+// Particle canvas
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * 2000,
+    y: Math.random() * 1000,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    size: Math.random() * 1.5 + 0.3,
+    alpha: Math.random() * 0.4 + 0.05
+  });
+}
+function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = W;
+    if (p.x > W) p.x = 0;
+    if (p.y < 0) p.y = H;
+    if (p.y > H) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,255,148,${p.alpha})`;
+    ctx.fill();
+  });
+  // draw connecting lines
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,255,148,${0.05 * (1 - d/120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Animate skill bars
+      e.target.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .timeline-item, .project-card, .award-row').forEach(el => observer.observe(el));
+
+// Trigger skill bars if already visible
+document.querySelectorAll('.skills-panel').forEach(panel => {
+  const panelObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+  panelObserver.observe(panel);
 });
 
-//
+// Counter animation
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count);
+  let current = 0;
+  const step = () => {
+    current = Math.min(current + 1, target);
+    el.textContent = current + '+';
+    if (current < target) requestAnimationFrame(step);
+  };
+  setTimeout(step, 1200);
+});
+
+// Stagger timeline items
+document.querySelectorAll('.timeline-item').forEach((item, i) => {
+  item.style.transitionDelay = (i * 0.1) + 's';
+});
+
+// Stagger project cards
+document.querySelectorAll('.project-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 0.1) + 's';
+});
+</script>
+</body>
+</html>
