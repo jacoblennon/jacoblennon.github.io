@@ -28,9 +28,7 @@ html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: 'Cabinet Grotesk', sans-serif; overflow-x: hidden; cursor: auto; }
 
 /* CURSOR */
-#cur  { position:fixed; width:10px; height:10px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .15s,height .15s; }
-#curR { position:fixed; width:36px; height:36px; border:1px solid rgba(79,255,176,.35); border-radius:50%; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:all .12s ease; }
-body:has(a:hover) #cur, body:has(button:hover) #cur { width:18px; height:18px; }
+#cur, #curR { display: none !important; }
 
 /* GRAIN */
 body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:.35; }
@@ -587,23 +585,8 @@ footer p { font-family:'DM Mono',monospace; font-size:.68rem; color:var(--muted)
 </footer>
 
 <script>
-// Custom cursor — resilient version
-const curEl=document.getElementById('cur'), curREl=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-if(curEl && curREl){
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX;my=e.clientY;
-    curEl.style.left=mx+'px';curEl.style.top=my+'px';
-  });
-  (function loop(){
-    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-    curREl.style.left=rx+'px';curREl.style.top=ry+'px';
-    requestAnimationFrame(loop);
-  })();
-} else {
-  // Fallback: restore default cursor if elements are missing
-  document.body.style.cursor='auto';
-}
+// Disabled custom cursor - using browser default for better UX
+document.body.style.cursor='auto';
 
 // Nav
 const navbar=document.getElementById('nav');
